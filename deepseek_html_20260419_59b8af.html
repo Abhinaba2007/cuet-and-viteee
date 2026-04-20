@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Exam Hub 2026 | CUET & VITEEE Launchpad</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f8faff 0%, #eef2fc 100%);
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+        }
+
+        /* main card container */
+        .dashboard {
+            max-width: 1300px;
+            width: 100%;
+            background: rgba(255,255,255,0.55);
+            backdrop-filter: blur(2px);
+            border-radius: 4rem;
+            padding: 2rem 2rem 3rem 2rem;
+            box-shadow: 0 25px 45px -12px rgba(0,0,0,0.2), 0 2px 6px rgba(0,0,0,0.02);
+            transition: all 0.2s ease;
+        }
+
+        /* header section */
+        .hero {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .badge-year {
+            display: inline-block;
+            background: #1a2c3e;
+            color: #ffe6c7;
+            padding: 0.35rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(4px);
+            margin-bottom: 1.2rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        h1 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #0B2B40, #1C4E6F, #2A6F8F);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.6rem;
+        }
+
+        .subhead {
+            font-size: 1.2rem;
+            color: #2c4b66;
+            font-weight: 500;
+            max-width: 620px;
+            margin: 0 auto;
+            border-bottom: 2px dotted #bdd3e8;
+            display: inline-block;
+            padding-bottom: 0.3rem;
+        }
+
+        /* two card options grid */
+        .exam-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin: 3rem 0 1rem;
+        }
+
+        /* card styling */
+        .exam-card {
+            flex: 1;
+            min-width: 280px;
+            max-width: 500px;
+            background: #ffffffdd;
+            backdrop-filter: blur(8px);
+            background: linear-gradient(135deg, rgba(255,255,255,0.96), rgba(248,251,255,0.98));
+            border-radius: 2.5rem;
+            padding: 2rem 1.8rem 2.2rem 1.8rem;
+            box-shadow: 0 20px 35px -12px rgba(0, 20, 40, 0.15);
+            transition: transform 0.25s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(120, 170, 210, 0.25);
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .exam-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.25);
+            border-color: rgba(70, 130, 200, 0.5);
+        }
+
+        /* icon & emoji area */
+        .card-icon {
+            font-size: 4.2rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            filter: drop-shadow(2px 6px 12px rgba(0,0,0,0.1));
+        }
+
+        .exam-title {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            margin: 0.5rem 0 0.35rem;
+        }
+
+        .subjects-list {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #2c5a74;
+            background: #eef3fc;
+            display: inline-block;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            margin: 0.8rem 0 1rem;
+        }
+
+        .btn-open {
+            background: #11181c;
+            border: none;
+            padding: 0.8rem 1.8rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 60px;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: all 0.2s;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            background: linear-gradient(100deg, #1f3e4c, #0f2c3a);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .btn-open:hover {
+            background: linear-gradient(100deg, #234f62, #0f2f3f);
+            transform: scale(0.97);
+            gap: 0.9rem;
+        }
+
+        /* specific accent for CUET */
+        .card-cuet .exam-title {
+            color: #C4450C;
+        }
+        .card-cuet .subjects-list {
+            background: #ffe2d4;
+            color: #b23c0a;
+        }
+        .card-cuet .btn-open {
+            background: linear-gradient(100deg, #c44f1e, #a13c12);
+        }
+
+        /* VITEEE specific accent */
+       .card-viteee .exam-title {
+            color: #1c6d49;
+        }
+        .card-viteee .subjects-list {
+            background: #dff3ea;
+            color: #0b5538;
+        }
+        .card-viteee .btn-open {
+            background: linear-gradient(100deg, #1e784e, #0f5a3a);
+        }
+
+        /* new page indicator badge */
+        .new-tab-badge {
+            position: absolute;
+            top: 18px;
+            right: 20px;
+            background: #00000020;
+            backdrop-filter: blur(4px);
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 30px;
+            font-weight: 500;
+            color: #2b2b2b;
+            pointer-events: none;
+            font-family: monospace;
+        }
+
+        /* footer info */
+        .info-note {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 0.85rem;
+            color: #4c6f86;
+            border-top: 1px solid #cbdde9;
+            padding-top: 1.8rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .info-note span {
+            background: #eef2f8;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            font-weight: 500;
+        }
+
+        @media (max-width: 720px) {
+            .dashboard {
+                padding: 1.5rem;
+            }
+            h1 {
+                font-size: 2.2rem;
+            }
+            .exam-title {
+                font-size: 1.7rem;
+            }
+            .card-icon {
+                font-size: 3rem;
+            }
+            .btn-open {
+                padding: 0.65rem 1.4rem;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .exam-grid {
+                gap: 1.2rem;
+            }
+            .exam-card {
+                padding: 1.5rem;
+            }
+        }
+
+        /* micro-interactions */
+        .exam-card:active {
+            transform: scale(0.98);
+            transition: 0.05s;
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard">
+    <div class="hero">
+        <div class="badge-year">⚡ ENTRANCE 2026 · INDIA</div>
+        <h1>🚀 Exam Launchpad</h1>
+        <div class="subhead">Choose your gateway · dedicated subject pages</div>
+    </div>
+
+    <div class="exam-grid">
+        <!-- Card 1: CUET 2026 — All Subjects -->
+        <div class="exam-card card-cuet" id="cuetCard">
+            <div class="new-tab-badge">🔗 new page</div>
+            <div class="card-icon">⚡📚</div>
+            <div class="exam-title">CUET 2026</div>
+            <div class="subjects-list">✨ All Subjects · UG Central</div>
+            <p style="margin: 0.8rem 0 0.4rem; color: #2c4e6e; font-weight: 400;">Complete syllabus coverage: Languages, Humanities, Sciences, Commerce & more.</p>
+            <button class="btn-open" id="openCuetBtn" onclick="window.open('CUET_2026_Master_Notes.html', '_blank')">📖 Open CUET 2026 →</button>
+        </div>
+
+        <!-- Card 2: VITEEE 2026 — PCM + English + Aptitude -->
+        <div class="exam-card card-viteee" id="viteeeCard">
+            <div class="new-tab-badge">🔗 new page</div>
+            <div class="card-icon">🏆🧠</div>
+            <div class="exam-title">VITEEE 2026</div>
+            <div class="subjects-list">📐 PCM + English + Aptitude</div>
+            <p style="margin: 0.8rem 0 0.4rem; color: #2c4e6e; font-weight: 400;">Physics · Chemistry · Mathematics · English Communication · Logical Aptitude</p>
+            <button class="btn-open" id="openViteeeBtn" onclick="window.open('VITEEE_2026_Master_Notes.html', '_blank')">🏅 Explore VITEEE 2026 →</button>
+        </div>
+    </div>
+
+    <div class="info-note">
+        <span>⚡ Click any card or button → opens detailed subject page in a new tab</span>
+        <span>📌 CUET & VITEEE 2026 — official pattern resources</span>
+    </div>
+</div>
+
+<script>
+    // ---- PAGE CONTENT GENERATORS for each exam (fully dynamic) ----
+    // These functions return the full HTML string for each dedicated page.
+    // They represent comprehensive subject pages with details, syllabus outlines, and exam strategies.
+
+    function generateCuetPageHTML() {
+        return `<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>CUET 2026 — All Subjects | Complete Guide</title>
+            <style>
+                * { margin:0; padding:0; box-sizing:border-box; }
+                body {
+                    background: linear-gradient(125deg, #fff6ed, #ffede0);
+                    font-family: 'Segoe UI', Roboto, 'Inter', sans-serif;
+                    padding: 2rem 1.5rem;
+                    color: #2d2f36;
+                }
+                .container {
+                    max-width: 1100px;
+                    margin: 0 auto;
+                    background: #fffef7;
+                    border-radius: 2rem;
+                    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+                    padding: 2rem 2rem 2.5rem;
+                }
+                h1 {
+                    font-size: 2.8rem;
+                    background: linear-gradient(135deg, #bc4e2c, #e25c2a);
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    color: transparent;
+                    margin-bottom: 0.25rem;
+                }
+                .badge-sub {
+                    background: #f5d7ca;
+                    display: inline-block;
+                    padding: 0.3rem 1rem;
+                    border-radius: 30px;
+                    font-weight: 600;
+                    margin: 0.5rem 0 1rem;
+                }
+                .section {
+                    margin: 2rem 0 1.8rem;
+                    border-left: 6px solid #e25c2a;
+                    padding-left: 1.2rem;
+                }
+                h2 {
+                    color: #a6411e;
+                    margin-bottom: 0.8rem;
+                    font-weight: 700;
+                }
+                ul, .subject-grid {
+                    margin-left: 1.2rem;
+                    line-height: 1.5;
+                }
+                li {
+                    margin: 0.5rem 0;
+                }
+                .subject-grid {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 0.8rem;
+                    margin-top: 1rem;
+                }
+                .subject-tag {
+                    background: #fae6dd;
+                    padding: 0.3rem 1rem;
+                    border-radius: 40px;
+                    font-weight: 500;
+                    font-size: 0.9rem;
+                }
+                .footer-note {
+                    margin-top: 2rem;
+                    background: #fff0e8;
+                    padding: 1rem;
+                    border-radius: 1.2rem;
+                    text-align: center;
+                }
+                .back-home {
+                    display: inline-block;
+                    margin-top: 1rem;
+                    background: #bc4e2c;
+                    color: white;
+                    text-decoration: none;
+                    padding: 0.6rem 1.4rem;
+                    border-radius: 40px;
+                    font-weight: 600;
+                }
+                @media (max-width: 650px) {
+                    .container { padding: 1.2rem; }
+                    h1 { font-size: 2rem; }
+                }
+            </style>
+        </head>
+        <body>
+        <div class="container">
+            <h1>⚡ CUET 2026 — All Subjects</h1>
+            <div class="badge-sub">📅 Common University Entrance Test · 2026 cycle</div>
+            <p style="margin: 0.8rem 0; font-size: 1.1rem;">Comprehensive coverage for undergraduate admissions into central & participating universities.</p>
+            
+            <div class="section">
+                <h2>📖 Subject Domains (All Streams)</h2>
+                <div class="subject-grid">
+                    <span class="subject-tag">🔤 Language Test (13+ languages)</span>
+                    <span class="subject-tag">📜 Humanities: History, Pol Science, Geography</span>
+                    <span class="subject-tag">🧪 Sciences: Physics, Chemistry, Biology, Maths</span>
+                    <span class="subject-tag">📊 Commerce: Accountancy, Business Studies, Economics</span>
+                    <span class="subject-tag">🎨 General Test: Reasoning, GK, Quant</span>
+                    <span class="subject-tag">🌍 Domain-specific: Psychology, CS, Sociology & more</span>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📌 2026 Exam Highlights</h2>
+                <ul>
+                    <li>✅ Mode: Hybrid (CBT) · 13+ languages including English/Hindi</li>
+                    <li>✅ Total Sections: 4 (Language, Domain, General Test, Optional)</li>
+                    <li>✅ Marking: +5 for correct, -1 for incorrect (varies by domain)</li>
+                    <li>✅ Participating Universities: 250+ Central/State/Private</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>📚 Recommended Preparation Strategy</h2>
+                <ul>
+                    <li>🎯 NCERT focus for all domain subjects (Class 12 level)</li>
+                    <li>🧠 General Test: Mock tests for logical reasoning & quantitative aptitude</li>
+                    <li>📖 Sectional time management & previous year papers (CUET 2025 pattern)</li>
+                    <li>⚡ CUET 2026 full mock series from March 2026</li>
+                </ul>
+            </div>
+            <div class="footer-note">
+                ⚡ Official website updates: cuet.samarth.ac.in (2026) <br>
+                🗓️ Expected timeline: Application May 2026 · Exams May–June 2026
+                <br><br>
+                <a href="#" onclick="window.close(); return false;" class="back-home" style="background:#8b3c1c;">⬅️ Close this tab</a>
+                <a href="javascript:void(0)" onclick="window.close()" style="margin-left: 1rem; color:#a6411e;"> ✖ Close window</a>
+            </div>
+        </div>
+        </body>
+        </html>`;
+    }
+
+    function generateViteeePageHTML() {
+        return `<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>VITEEE 2026 — PCM + English + Aptitude</title>
+            <style>
+                * { margin:0; padding:0; box-sizing:border-box; }
+                body {
+                    background: linear-gradient(115deg, #e1f5ea, #cde9df);
+                    font-family: 'Segoe UI', 'Inter', system-ui;
+                    padding: 2rem 1.5rem;
+                    color: #1c3a2b;
+                }
+                .wrapper {
+                    max-width: 1100px;
+                    margin: 0 auto;
+                    background: #ffffffea;
+                    border-radius: 2rem;
+                    box-shadow: 0 25px 40px rgba(0, 32, 16, 0.1);
+                    padding: 2rem;
+                }
+                h1 {
+                    font-size: 2.6rem;
+                    color: #1a6843;
+                    letter-spacing: -0.3px;
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                }
+                .chip {
+                    background: #d0f0e2;
+                    padding: 0.2rem 1rem;
+                    border-radius: 50px;
+                    font-weight: 600;
+                    width: fit-content;
+                    margin: 0.8rem 0;
+                }
+                .subject-spec {
+                    background: #edfaf3;
+                    padding: 1rem 1.5rem;
+                    border-radius: 1.5rem;
+                    margin: 1.5rem 0;
+                }
+                h2 {
+                    color: #0e5c3c;
+                    margin: 1rem 0 0.5rem;
+                    border-left: 4px solid #1a9e62;
+                    padding-left: 0.8rem;
+                }
+                ul {
+                    margin-left: 1.6rem;
+                    margin-top: 0.5rem;
+                }
+                li {
+                    margin: 0.6rem 0;
+                }
+                .highlight-grid {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 12px;
+                    margin: 1rem 0;
+                }
+                .pill {
+                    background: #dcfce8;
+                    padding: 0.4rem 1rem;
+                    border-radius: 40px;
+                    font-weight: 500;
+                }
+                .footer-close {
+                    margin-top: 2rem;
+                    background: #e0f2e9;
+                    padding: 1rem;
+                    border-radius: 1rem;
+                    text-align: center;
+                }
+                .close-btn {
+                    background: #136b48;
+                    color: white;
+                    border: none;
+                    padding: 0.6rem 1.5rem;
+                    border-radius: 40px;
+                    font-weight: bold;
+                    cursor: pointer;
+                    font-size: 0.9rem;
+                    margin-top: 0.8rem;
+                }
+                @media (max-width: 550px) {
+                    h1 { font-size: 1.8rem; }
+                }
+            </style>
+        </head>
+        <body>
+        <div class="wrapper">
+            <h1>🏆 VITEEE 2026 <span style="font-size:1.2rem;">PCM + English + Aptitude</span></h1>
+            <div class="chip">VIT Engineering Entrance Exam · 2026 Edition</div>
+            <p style="margin: 0.6rem 0 0; font-size:1.05rem;">Eligibility: PCM in 10+2 · Exam for B.Tech admissions at VIT Vellore, Chennai, Bhopal, AP.</p>
+
+            <div class="subject-spec">
+                <strong>📌 Exam Structure (as per VITEEE 2026 pattern)</strong>
+                <div class="highlight-grid">
+                    <span class="pill">🔬 Physics (25 Qs)</span>
+                    <span class="pill">🧪 Chemistry (25 Qs)</span>
+                    <span class="pill">📐 Mathematics (40 Qs)</span>
+                    <span class="pill">🇬🇧 English (5 Qs)</span>
+                    <span class="pill">🧩 Aptitude (10 Qs)</span>
+                </div>
+                <p>⏱️ Duration: 2 hours 30 minutes · Total Questions: 125 · No negative marking (except for wrong answers in certain sections? As per recent updates: No negative marking in VITEEE 2025, similar for 2026 likely) ⚡</p>
+            </div>
+
+            <h2>📖 Detailed Syllabus (PCM + English + Aptitude)</h2>
+            <ul>
+                <li><strong>Physics:</strong> Electrostatics, Current Electricity, Magnetism, Optics, Modern Physics, Semiconductors.</li>
+                <li><strong>Chemistry:</strong> Physical Chemistry (Atomic structure, Thermo), Organic (Reactions, Polymers), Inorganic (Coordination, p-block).</li>
+                <li><strong>Mathematics:</strong> Matrices, Calculus, Vector 3D, Probability, Complex Numbers, Diff Equations.</li>
+                <li><strong>English:</strong> Reading comprehension, Grammar, Vocabulary, Sentence correction.</li>
+                <li><strong>Aptitude:</strong> Logical reasoning, Data interpretation, Analytical puzzles, Numerical ability.</li>
+            </ul>
+
+            <h2>🎯 2026 Preparation Blueprint</h2>
+            <ul>
+                <li>✔️ Emphasis on NCERT & previous VITEEE papers (2023-2025).</li>
+                <li>✔️ Speed drills for mathematics & logical reasoning.</li>
+                <li>✔️ English & aptitude section can be scoring — practice 15 mins daily.</li>
+                <li>✔️ Official mock test series will be released on vit.ac.in</li>
+            </ul>
+
+            <div class="footer-close">
+                📅 VITEEE 2026 tentative: Application opens Nov 2025 · Exam April 2026 <br>
+                🔗 Official updates: <strong>viteee.vit.ac.in</strong> <br><br>
+                <button class="close-btn" onclick="window.close()">✖ Close this tab & return to home</button>
+                <p style="margin-top: 0.8rem; font-size:0.8rem;">✅ This page covers all core subjects: PCM, English & Aptitude as requested.</p>
+            </div>
+        </div>
+        </body>
+        </html>`;
+    }
+
+    // Helper: open a new tab with the dynamically generated HTML content
+    function openNewPageWithContent(title, htmlContent) {
+        const newTab = window.open();
+        if (!newTab) {
+            alert("Popup blocked! Please allow popups for this site to open new exam pages.");
+            return;
+        }
+        newTab.document.write(htmlContent);
+        newTab.document.title = title;
+        newTab.document.close();
+    }
+
+    // ---- EVENT LISTENERS for both cards & buttons ----
+    // CUET 2026 opening (both card click and button click)
+    function openCuetPage(e) {
+        if(e) e.stopPropagation();
+        const fullPage = generateCuetPageHTML();
+        openNewPageWithContent("CUET 2026 — All Subjects", fullPage);
+    }
+
+    function openViteeePage(e) {
+        if(e) e.stopPropagation();
+        const fullPage = generateViteeePageHTML();
+        openNewPageWithContent("VITEEE 2026 — PCM + English + Aptitude", fullPage);
+    }
+
+    // Get elements
+    const cuetCard = document.getElementById('cuetCard');
+    const viteeeCard = document.getElementById('viteeeCard');
+    const cuetBtn = document.getElementById('openCuetBtn');
+    const viteeeBtn = document.getElementById('openViteeeBtn');
+
+    // attach event handlers (click on card also triggers page opening)
+    if(cuetCard) cuetCard.addEventListener('click', openCuetPage);
+    if(viteeeCard) viteeeCard.addEventListener('click', openViteeePage);
+    if(cuetBtn) cuetBtn.addEventListener('click', (e) => {
+        e.stopPropagation();  // avoid double triggering if card also has listener (though we prevent bubbling anyway)
+        openCuetPage();
+    });
+    if(viteeeBtn) viteeeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openViteeePage();
+    });
+
+    // Optional: add console info to ensure healthy environment
+    console.log("🏠 Homepage ready — CUET 2026 & VITEEE 2026 pages ready with full subject details.");
+</script>
+</body>
+</html>

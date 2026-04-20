@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CUET 2026 — Master Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c14;
+    --surface: #111320;
+    --card: #161926;
+    --border: #1e2235;
+    --physics: #00d4ff;
+    --chemistry: #ff6b35;
+    --maths: #a78bfa;
+    --english: #34d399;
+    --cs: #fbbf24;
+    --text: #e8eaf6;
+    --muted: #7b82a0;
+    --accent: #ff4d6d;
+    --glow-p: rgba(0,212,255,0.15);
+    --glow-c: rgba(255,107,53,0.15);
+    --glow-m: rgba(167,139,250,0.15);
+    --glow-e: rgba(52,211,153,0.15);
+    --glow-cs: rgba(251,191,36,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #0a0c14 0%, #111826 50%, #0d1020 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 40px 50px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -100px; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 300px;
+    background: radial-gradient(ellipse, rgba(167,139,250,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: linear-gradient(90deg, var(--accent), #ff8c42);
+    color: #fff;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    padding: 5px 16px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px;
+    font-weight: 900;
+    background: linear-gradient(135deg, #fff 0%, #a78bfa 50%, #00d4ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  .hero-sub {
+    color: var(--muted);
+    font-size: 15px;
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+  }
+  .subject-pills {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .pill {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid;
+    letter-spacing: 1px;
+  }
+  .pill.p { color: var(--physics); border-color: var(--physics); background: var(--glow-p); }
+  .pill.c { color: var(--chemistry); border-color: var(--chemistry); background: var(--glow-c); }
+  .pill.m { color: var(--maths); border-color: var(--maths); background: var(--glow-m); }
+  .pill.e { color: var(--english); border-color: var(--english); background: var(--glow-e); }
+  .pill.cs { color: var(--cs); border-color: var(--cs); background: var(--glow-cs); }
+
+  /* NAV */
+  .toc {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .toc a {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-decoration: none;
+    padding: 14px 20px;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .toc a.p { color: var(--physics); }
+  .toc a.p:hover { border-color: var(--physics); background: var(--glow-p); }
+  .toc a.c { color: var(--chemistry); }
+  .toc a.c:hover { border-color: var(--chemistry); background: var(--glow-c); }
+  .toc a.m { color: var(--maths); }
+  .toc a.m:hover { border-color: var(--maths); background: var(--glow-m); }
+  .toc a.e { color: var(--english); }
+  .toc a.e:hover { border-color: var(--english); background: var(--glow-e); }
+  .toc a.cs { color: var(--cs); }
+  .toc a.cs:hover { border-color: var(--cs); background: var(--glow-cs); }
+  .toc a.st { color: var(--accent); }
+  .toc a.st:hover { border-color: var(--accent); }
+
+  /* LAYOUT */
+  .main { max-width: 1100px; margin: 0 auto; padding: 40px 30px 80px; }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 60px 0 30px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-icon {
+    font-size: 28px;
+    width: 52px; height: 52px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 14px;
+    border: 1px solid;
+    flex-shrink: 0;
+  }
+  .section-icon.p { background: var(--glow-p); border-color: var(--physics); }
+  .section-icon.c { background: var(--glow-c); border-color: var(--chemistry); }
+  .section-icon.m { background: var(--glow-m); border-color: var(--maths); }
+  .section-icon.e { background: var(--glow-e); border-color: var(--english); }
+  .section-icon.cs { background: var(--glow-cs); border-color: var(--cs); }
+  .section-title h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+  }
+  .section-title h2.p { color: var(--physics); }
+  .section-title h2.c { color: var(--chemistry); }
+  .section-title h2.m { color: var(--maths); }
+  .section-title h2.e { color: var(--english); }
+  .section-title h2.cs { color: var(--cs); }
+  .section-title p { color: var(--muted); font-size: 13px; margin-top: 2px; }
+
+  /* SUBSECTION */
+  .subsection {
+    margin: 30px 0;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .subsection-header {
+    padding: 14px 20px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .subsection-header.p { background: var(--glow-p); color: var(--physics); border-color: rgba(0,212,255,0.2); }
+  .subsection-header.c { background: var(--glow-c); color: var(--chemistry); border-color: rgba(255,107,53,0.2); }
+  .subsection-header.m { background: var(--glow-m); color: var(--maths); border-color: rgba(167,139,250,0.2); }
+  .subsection-header.e { background: var(--glow-e); color: var(--english); border-color: rgba(52,211,153,0.2); }
+  .subsection-header.cs { background: var(--glow-cs); color: var(--cs); border-color: rgba(251,191,36,0.2); }
+  .subsection-body { padding: 20px; }
+
+  /* FORMULA TABLE */
+  .ftable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: 8px 0;
+  }
+  .ftable th {
+    text-align: left;
+    padding: 8px 12px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: rgba(255,255,255,0.03);
+    border-bottom: 1px solid var(--border);
+  }
+  .ftable td {
+    padding: 9px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    vertical-align: top;
+  }
+  .ftable tr:last-child td { border-bottom: none; }
+  .ftable td:first-child {
+    font-weight: 600;
+    color: var(--text);
+    width: 35%;
+  }
+  .ftable td:last-child {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: #c5cae9;
+  }
+  .ftable tr:hover td { background: rgba(255,255,255,0.025); }
+
+  /* FORMULA INLINE */
+  code {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    background: rgba(255,255,255,0.07);
+    padding: 2px 7px;
+    border-radius: 5px;
+    color: #e0e7ff;
+  }
+
+  /* GRID 2-COL */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 12px 0; }
+  @media(max-width:700px){ .grid2 { grid-template-columns: 1fr; } }
+
+  /* FACT BOX */
+  .fact-box {
+    background: rgba(255,255,255,0.03);
+    border-radius: 10px;
+    padding: 14px 16px;
+    border-left: 3px solid;
+    margin: 8px 0;
+  }
+  .fact-box.p { border-color: var(--physics); }
+  .fact-box.c { border-color: var(--chemistry); }
+  .fact-box.m { border-color: var(--maths); }
+  .fact-box.e { border-color: var(--english); }
+  .fact-box.cs { border-color: var(--cs); }
+  .fact-box strong { display: block; font-size: 12px; letter-spacing: 1px; margin-bottom: 6px; opacity: 0.7; }
+
+  /* ALERT / MUST KNOW */
+  .alert {
+    background: rgba(255,77,109,0.1);
+    border: 1px solid rgba(255,77,109,0.3);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin: 14px 0;
+    font-size: 13px;
+    color: #ffb3c1;
+  }
+  .alert::before { content: '✅ ALWAYS ASKED → '; font-weight: 700; color: var(--accent); }
+
+  /* REACTION BOX */
+  .rxn {
+    background: rgba(255,107,53,0.07);
+    border: 1px solid rgba(255,107,53,0.2);
+    border-radius: 10px;
+    padding: 13px 16px;
+    margin: 8px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    line-height: 2;
+    color: #ffd0bc;
+  }
+  .rxn-name {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--chemistry);
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+  }
+
+  /* CODE BLOCK */
+  .codeblock {
+    background: #0d1117;
+    border: 1px solid #1e2a3a;
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin: 10px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    line-height: 1.9;
+    color: #cdd9e5;
+    overflow-x: auto;
+    white-space: pre;
+  }
+  .codeblock .kw { color: #ff7b72; }
+  .codeblock .fn { color: #79c0ff; }
+  .codeblock .cm { color: #6a7f8e; font-style: italic; }
+  .codeblock .st { color: #a5d6ff; }
+  .codeblock .nu { color: #f8c555; }
+
+  /* GATE TABLE */
+  .gate-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    margin: 10px 0;
+  }
+  .gate-table th {
+    background: rgba(251,191,36,0.1);
+    color: var(--cs);
+    padding: 8px 14px;
+    text-align: center;
+    border: 1px solid rgba(251,191,36,0.2);
+  }
+  .gate-table td {
+    padding: 7px 14px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.06);
+    color: #ddd;
+  }
+  .gate-table td:first-child { color: var(--cs); font-weight: 700; text-align: left; }
+  .gate-table td:nth-child(2) { color: #e0e7ff; }
+  .gate-table tr:hover td { background: rgba(255,255,255,0.03); }
+
+  /* BULLET LIST */
+  ul.nb {
+    list-style: none;
+    padding: 0;
+    margin: 8px 0;
+  }
+  ul.nb li {
+    padding: 5px 0 5px 20px;
+    position: relative;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    font-size: 13px;
+  }
+  ul.nb li:last-child { border-bottom: none; }
+  ul.nb li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    font-size: 11px;
+    top: 7px;
+  }
+  ul.nb.p li::before { color: var(--physics); }
+  ul.nb.c li::before { color: var(--chemistry); }
+  ul.nb.m li::before { color: var(--maths); }
+  ul.nb.e li::before { color: var(--english); }
+  ul.nb.cs li::before { color: var(--cs); }
+
+  /* ALWAYS-ASKED TABLE */
+  .aa-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    font-size: 13px;
+  }
+  .aa-table th {
+    text-align: left;
+    padding: 10px 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: rgba(255,77,109,0.1);
+    color: var(--accent);
+    border-bottom: 1px solid rgba(255,77,109,0.3);
+  }
+  .aa-table td {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .aa-table td:first-child { font-weight: 600; }
+  .aa-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+  /* STRATEGY */
+  .strategy-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    margin: 16px 0;
+  }
+  .strategy-header {
+    background: linear-gradient(90deg, rgba(255,77,109,0.2), rgba(167,139,250,0.1));
+    padding: 14px 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .strategy-body { padding: 20px; }
+  .pass-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .pass-row:last-child { border-bottom: none; }
+  .pass-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 900;
+    line-height: 1;
+    flex-shrink: 0;
+    width: 40px;
+  }
+  .pass-detail strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 3px; }
+  .pass-detail span { color: var(--muted); font-size: 13px; }
+
+  /* HIGHLIGHT */
+  .hl { background: rgba(255,255,255,0.08); border-radius: 4px; padding: 1px 5px; }
+  .hl.p { color: var(--physics); }
+  .hl.c { color: var(--chemistry); }
+  .hl.m { color: var(--maths); }
+  .hl.cs { color: var(--cs); }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 10px 0;
+  }
+
+  /* SPEC BLOCK */
+  .spec {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    margin: 12px 0;
+  }
+  .spec-item {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .spec-item .label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+  .spec-item .value {
+    font-size: 13px;
+    color: var(--text);
+  }
+
+  /* SCROLL HINT */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 40px;
+    color: var(--muted);
+    font-size: 12px;
+    font-family: 'Space Mono', monospace;
+    border-top: 1px solid var(--border);
+    margin-top: 60px;
+  }
+  .footer span { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">CUET 2026 — Definitive Prep</div>
+  <h1>Master Notes<br>& Key Concepts</h1>
+  <p class="hero-sub">ALL SUBJECTS · EVERY FORMULA · EVERY REACTION · COMPLETE STRATEGY</p>
+  <div class="subject-pills">
+    <span class="pill p">⚡ Physics</span>
+    <span class="pill c">⚗ Chemistry</span>
+    <span class="pill m">📐 Mathematics</span>
+    <span class="pill e">🗣 English</span>
+    <span class="pill cs">💻 Computer Science</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="toc">
+  <a href="#physics" class="p">⚡ PHYSICS</a>
+  <a href="#chemistry" class="c">⚗ CHEMISTRY</a>
+  <a href="#maths" class="m">📐 MATHS</a>
+  <a href="#english" class="e">🗣 ENGLISH</a>
+  <a href="#cs" class="cs">💻 CS</a>
+  <a href="#always" class="st">🔑 ALWAYS ASKED</a>
+  <a href="#strategy" class="st">⏱ STRATEGY</a>
+</nav>
+
+<div class="main">
+
+<!-- ═══════════════════════════════════════════ PHYSICS ═════════════════════ -->
+<div id="physics">
+  <div class="section-header">
+    <div class="section-icon p">⚡</div>
+    <div class="section-title">
+      <h2 class="p">Physics</h2>
+      <p>NCERT + Formula Clarity · ~35 Expected Questions · Focus on concepts + application</p>
+    </div>
+  </div>
+
+  <!-- Electrostatics -->
+  <div class="subsection">
+    <div class="subsection-header p">01 · Electrostatics &amp; Current Electricity</div>
+    <div class="subsection-body">
+      <table class="ftable">
+        <tr><th>Concept</th><th>Formula / Key Point</th></tr>
+        <tr><td>Coulomb's Law</td><td>F = kq₁q₂/r² &nbsp;|&nbsp; k = 9×10⁹ Nm²/C²</td></tr>
+        <tr><td>Electric Field</td><td>E = F/q = kq/r² &nbsp;— direction: away from +ve, toward −ve</td></tr>
+        <tr><td>Electric Potential</td><td>V = kq/r (scalar) &nbsp;|&nbsp; ΔV = −∫E·dr</td></tr>
+        <tr><td>Gauss's Law</td><td>φ = q/ε₀ (total flux through closed surface)</td></tr>
+        <tr><td>Capacitance</td><td>C = Q/V &nbsp;|&nbsp; Parallel plate: C = ε₀A/d</td></tr>
+        <tr><td>Energy in Capacitor</td><td>U = ½CV² = ½QV = Q²/2C</td></tr>
+        <tr><td>Capacitors in Series</td><td>1/C = 1/C₁ + 1/C₂ + ...</td></tr>
+        <tr><td>Capacitors in Parallel</td><td>C = C₁ + C₂ + ...</td></tr>
+        <tr><td>Dipole — Axial Point</td><td>V = kp/r² &nbsp;|&nbsp; E = 2kp/r³ (along axis)</td></tr>
+        <tr><td>Dipole — Equatorial</td><td>V = 0 &nbsp;|&nbsp; E = kp/r³ (perpendicular to axis)</td></tr>
+        <tr><td>Ohm's Law</td><td>V = IR</td></tr>
+        <tr><td>Resistivity</td><td>R = ρL/A &nbsp;|&nbsp; ρₜ = ρ₀(1 + αt)</td></tr>
+        <tr><td>Power</td><td>P = VI = I²R = V²/R</td></tr>
+        <tr><td>KCL</td><td>ΣI = 0 at junction (charge conservation)</td></tr>
+        <tr><td>KVL</td><td>ΣV = 0 in closed loop (energy conservation)</td></tr>
+        <tr><td>Wheatstone Bridge</td><td>R₁/R₂ = R₃/R₄ → balanced, no current in galvanometer</td></tr>
+        <tr><td>Potentiometer</td><td>E₁/E₂ = l₁/l₂ &nbsp;— measures EMF &amp; internal resistance accurately</td></tr>
+      </table>
+      <div class="alert">Wheatstone bridge condition, series/parallel capacitor energy, dipole potential on axial/equatorial line</div>
+    </div>
+  </div>
+
+  <!-- Magnetism -->
+  <div class="subsection">
+    <div class="subsection-header p">02 · Magnetism &amp; EMI</div>
+    <div class="subsection-body">
+      <table class="ftable">
+        <tr><th>Concept</th><th>Formula / Key Point</th></tr>
+        <tr><td>Biot-Savart Law</td><td>dB = (μ₀/4π)·(I dl×r̂)/r²</td></tr>
+        <tr><td>B — infinite wire</td><td>B = μ₀I/(2πr)</td></tr>
+        <tr><td>B — centre of circular loop</td><td>B = μ₀I/(2R)</td></tr>
+        <tr><td>Ampere's Law</td><td>∮B·dl = μ₀I</td></tr>
+        <tr><td>Force on moving charge</td><td>F = q(v×B) = qvBsinθ &nbsp;|&nbsp; radius r = mv/(qB)</td></tr>
+        <tr><td>Force on current-carrying wire</td><td>F = BILsinθ</td></tr>
+        <tr><td>Torque on loop</td><td>τ = NIABsinθ &nbsp;|&nbsp; Magnetic moment M = NIA</td></tr>
+        <tr><td>Cyclotron Frequency</td><td>f = qB/2πm (independent of velocity)</td></tr>
+        <tr><td>Faraday's Law</td><td>ε = −dΦ/dt</td></tr>
+        <tr><td>Lenz's Law</td><td>Induced current opposes the change in flux</td></tr>
+        <tr><td>Self Induction</td><td>ε = −L(dI/dt) &nbsp;|&nbsp; Energy = ½LI²</td></tr>
+        <tr><td>Mutual Induction</td><td>ε₂ = −M(dI₁/dt)</td></tr>
+        <tr><td>Transformer (ideal)</td><td>Vₚ/Vₛ = Nₚ/Nₛ = Iₛ/Iₚ</td></tr>
+      </table>
+      <div class="alert">Cyclotron frequency, direction of induced current by Lenz's law, transformer equations</div>
+    </div>
+  </div>
+
+  <!-- Optics -->
+  <div class="subsection">
+    <div class="subsection-header p">03 · Optics (Ray + Wave)</div>
+    <div class="subsection-body">
+      <table class="ftable">
+        <tr><th>Concept</th><th>Formula / Key Point</th></tr>
+        <tr><td>Mirror Formula</td><td>1/f = 1/v + 1/u</td></tr>
+        <tr><td>Magnification (mirror)</td><td>m = −v/u &nbsp;(negative = real &amp; inverted)</td></tr>
+        <tr><td>Lens Formula</td><td>1/f = 1/v − 1/u</td></tr>
+        <tr><td>Lens Maker's Formula</td><td>1/f = (μ−1)(1/R₁ − 1/R₂)</td></tr>
+        <tr><td>Power of Lens</td><td>P = 1/f (metres) → dioptre</td></tr>
+        <tr><td>Snell's Law</td><td>n₁sinθ₁ = n₂sinθ₂ (μ₁sinθ₁ = μ₂sinθ₂)</td></tr>
+        <tr><td>Total Internal Reflection</td><td>Critical angle θc = sin⁻¹(n₂/n₁) &nbsp;— denser to rarer</td></tr>
+        <tr><td>Young's Double Slit</td><td>β = λD/d (fringe width) &nbsp;|&nbsp; Bright: Δx = nλ &nbsp;|&nbsp; Dark: Δx = (2n−1)λ/2</td></tr>
+        <tr><td>Diffraction (single slit)</td><td>Minima: a sinθ = nλ</td></tr>
+      </table>
+      <div class="alert">Lens formula sign conventions, TIR condition, fringe width formula, lens maker's equation</div>
+    </div>
+  </div>
+
+  <!-- Modern Physics -->
+  <div class="subsection">
+    <div class="subsection-header p">04 · Modern Physics (VERY SCORING)</div>
+    <div class="subsection-body">
+      <table class="ftable">
+        <tr><th>Concept</th><th>Formula / Key Point</th></tr>
+        <tr><td>Photoelectric Effect</td><td>KEmax = hν − φ &nbsp;|&nbsp; hν = φ + eV₀</td></tr>
+        <tr><td>Threshold Frequency</td><td>ν₀ = φ/h (below this → no emission regardless of intensity)</td></tr>
+        <tr><td>Bohr's Model — Radius</td><td>rₙ = 0.529 n²/Z Å</td></tr>
+        <tr><td>Bohr's Model — Energy</td><td>Eₙ = −13.6 Z²/n² eV</td></tr>
+        <tr><td>Hydrogen Spectrum</td><td>1/λ = R(1/n₁² − 1/n₂²) &nbsp;|&nbsp; R = 1.097×10⁷ m⁻¹</td></tr>
+        <tr><td>Radioactive Decay</td><td>N = N₀ e⁻λt</td></tr>
+        <tr><td>Half-life</td><td>T½ = 0.693/λ</td></tr>
+        <tr><td>Mean Life</td><td>τ = 1/λ</td></tr>
+        <tr><td>Mass Defect &amp; BE</td><td>Δm = [Zmₚ + Nmₙ] − Mnucleus &nbsp;|&nbsp; BE = Δm·c²</td></tr>
+        <tr><td>Mass-Energy</td><td>E = mc²</td></tr>
+        <tr><td>Semiconductors</td><td>Intrinsic: nᵢ = nₑ = nₕ &nbsp;|&nbsp; n-type: donor (pentavalent) &nbsp;|&nbsp; p-type: acceptor (trivalent)</td></tr>
+        <tr><td>p-n Junction</td><td>Forward bias (V &gt; 0.7V Si) → conducts &nbsp;|&nbsp; Reverse bias → negligible current</td></tr>
+      </table>
+      <div class="alert">Photoelectric equation, half-life calculations, Bohr orbit energy levels, logic gate outputs</div>
+    </div>
+  </div>
+
+  <!-- Thermodynamics -->
+  <div class="subsection">
+    <div class="subsection-header p">05 · Thermodynamics</div>
+    <div class="subsection-body">
+      <table class="ftable">
+        <tr><th>Concept</th><th>Formula / Key Point</th></tr>
+        <tr><td>First Law</td><td>ΔU = Q − W (internal energy = heat added − work done)</td></tr>
+        <tr><td>Work — Isobaric</td><td>W = PΔV (constant pressure)</td></tr>
+        <tr><td>Work — Isochoric</td><td>W = 0 (constant volume)</td></tr>
+        <tr><td>Work — Isothermal</td><td>W = nRT ln(V₂/V₁)</td></tr>
+        <tr><td>Adiabatic</td><td>PVᵞ = constant &nbsp;|&nbsp; γ = Cₚ/Cᵥ (no heat exchange)</td></tr>
+        <tr><td>Carnot Efficiency</td><td>η = 1 − T₂/T₁ (temperatures in Kelvin)</td></tr>
+        <tr><td>Second Law</td><td>Entropy of universe always increases; heat cannot flow from cold to hot spontaneously</td></tr>
+      </table>
+      <div class="alert">Identify type of process from PV diagram, Carnot efficiency calculation</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ CHEMISTRY ═════════════════════ -->
+<div id="chemistry">
+  <div class="section-header">
+    <div class="section-icon c">⚗</div>
+    <div class="section-title">
+      <h2 class="c">Chemistry</h2>
+      <p>NCERT is everything · Read line by line · Focus on reactions, mechanisms, conversions</p>
+    </div>
+  </div>
+
+  <!-- Physical Chem -->
+  <div class="subsection">
+    <div class="subsection-header c">Physical Chemistry</div>
+    <div class="subsection-body">
+      <div class="fact-box c"><strong>MOLE CONCEPT</strong>
+        <ul class="nb c">
+          <li>Moles = given mass / molar mass</li>
+          <li>1 mole = 6.022 × 10²³ particles (Avogadro's number)</li>
+          <li>Molarity M = moles of solute / volume in litres</li>
+          <li>Molality m = moles of solute / kg of solvent</li>
+          <li>% composition = (mass of element / molar mass) × 100</li>
+        </ul>
+      </div>
+      <div class="fact-box c"><strong>SOLUTIONS</strong>
+        <table class="ftable">
+          <tr><td>Raoult's Law</td><td>P = Xsolvent · P° &nbsp;|&nbsp; relative lowering = (P°−P)/P° = x₂</td></tr>
+          <tr><td>Elevation in BP</td><td>ΔTb = Kb × m</td></tr>
+          <tr><td>Depression in FP</td><td>ΔTf = Kf × m</td></tr>
+          <tr><td>Osmotic Pressure</td><td>π = iCRT (van't Hoff)</td></tr>
+          <tr><td>Van't Hoff factor</td><td>i > 1 for electrolytes (dissociation) &nbsp;|&nbsp; i < 1 for association</td></tr>
+        </table>
+      </div>
+      <div class="fact-box c"><strong>ELECTROCHEMISTRY</strong>
+        <table class="ftable">
+          <tr><td>Nernst Equation</td><td>E = E° − (0.0591/n) log Q &nbsp;at 25°C</td></tr>
+          <tr><td>Gibbs &amp; EMF</td><td>ΔG° = −nFE°</td></tr>
+          <tr><td>Kohlrausch's Law</td><td>Λ°m = λ°(+) + λ°(−)</td></tr>
+          <tr><td>Faraday's 1st Law</td><td>m = ZIt = (E/96500) × It</td></tr>
+          <tr><td>Faraday's 2nd Law</td><td>m₁/m₂ = E₁/E₂ (E = equivalent weight)</td></tr>
+        </table>
+      </div>
+      <div class="fact-box c"><strong>CHEMICAL KINETICS</strong>
+        <table class="ftable">
+          <tr><td>Rate Law</td><td>r = k[A]^m[B]^n</td></tr>
+          <tr><td>Zero Order</td><td>[A] = [A]₀ − kt &nbsp;|&nbsp; t½ = [A]₀/2k</td></tr>
+          <tr><td>First Order</td><td>k = (2.303/t) log([A]₀/[A]) &nbsp;|&nbsp; t½ = 0.693/k</td></tr>
+          <tr><td>Arrhenius Equation</td><td>k = Ae^(−Ea/RT) &nbsp;|&nbsp; log(k₂/k₁) = (Ea/2.303R)(1/T₁−1/T₂)</td></tr>
+        </table>
+      </div>
+      <div class="fact-box c"><strong>THERMODYNAMICS (CHEM)</strong>
+        <ul class="nb c">
+          <li>ΔH = ΔU + ΔnRT (Δn = moles gaseous products − reactants)</li>
+          <li>ΔG = ΔH − TΔS</li>
+          <li>ΔG &lt; 0 → spontaneous &nbsp;|&nbsp; ΔG = 0 → equilibrium &nbsp;|&nbsp; ΔG &gt; 0 → non-spontaneous</li>
+          <li>Hess's Law: ΔH is path independent</li>
+        </ul>
+      </div>
+      <div class="alert">Nernst equation calculation, order of reaction from graph, colligative properties comparison</div>
+    </div>
+  </div>
+
+  <!-- Organic Chem -->
+  <div class="subsection">
+    <div class="subsection-header c">Organic Chemistry</div>
+    <div class="subsection-body">
+      <div class="fact-box c"><strong>GOC — GENERAL ORGANIC CHEMISTRY</strong>
+        <ul class="nb c">
+          <li>Inductive Effect: −I (electron-withdrawing: halogens, NO₂, CN) &nbsp;|&nbsp; +I (electron-donating: alkyl groups)</li>
+          <li>Resonance stabilises carbocations and carbanions</li>
+          <li>Hyperconjugation: stabilises carbocations (more α-H = more stable)</li>
+          <li>Aromaticity (Hückel's rule): 4n+2 π electrons in planar ring</li>
+          <li>Electrophiles: electron-deficient (H⁺, NO₂⁺, X⁺, carbocations)</li>
+          <li>Nucleophiles: electron-rich (OH⁻, CN⁻, NH₃, halide ions)</li>
+          <li>SN1: carbocation intermediate → racemisation &nbsp;|&nbsp; reactivity: 3° &gt; 2° &gt; 1°</li>
+          <li>SN2: backside attack → inversion of configuration &nbsp;|&nbsp; reactivity: 1° &gt; 2° &gt; 3°</li>
+          <li>Markovnikov's Rule: H adds to C with more H (in electrophilic addition to alkenes)</li>
+          <li>Anti-Markovnikov (Peroxide effect): H adds to C with fewer H (free radical addition)</li>
+        </ul>
+      </div>
+
+      <p style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--chemistry);margin:16px 0 10px;text-transform:uppercase;">NAME REACTIONS — Must Memorise All</p>
+
+      <div class="rxn"><span class="rxn-name">Carbylamine Reaction</span>1° amine + CHCl₃ + KOH → isocyanide (foul smell) → TEST for 1° amine only</div>
+      <div class="rxn"><span class="rxn-name">Haloform Reaction (Iodoform)</span>CH₃CO− compound + X₂/NaOH → CHX₃ &nbsp;|&nbsp; Also: CH₃CHOH− compounds give positive iodoform test</div>
+      <div class="rxn"><span class="rxn-name">Aldol Condensation</span>Aldehydes/Ketones WITH α-H + dilute base → β-hydroxy carbonyl compound</div>
+      <div class="rxn"><span class="rxn-name">Cannizzaro Reaction</span>Aldehydes WITHOUT α-H + conc. NaOH → disproportionation (one oxidised, one reduced)</div>
+      <div class="rxn"><span class="rxn-name">Reimer-Tiemann Reaction</span>Phenol + CHCl₃ + NaOH → salicylaldehyde (ortho-hydroxybenzaldehyde)</div>
+      <div class="rxn"><span class="rxn-name">Kolbe's Reaction</span>Sodium phenoxide + CO₂ + pressure/heat → salicylic acid</div>
+      <div class="rxn"><span class="rxn-name">Hinsberg Test</span>Amine + benzenesulfonyl chloride → distinguishes 1°, 2°, 3° amines</div>
+      <div class="rxn"><span class="rxn-name">Sandmeyer Reaction</span>Diazonium salt + CuCl/CuBr → aryl chloride/bromide</div>
+      <div class="rxn"><span class="rxn-name">Hofmann Bromamide Reaction</span>Amide + Br₂ + NaOH → 1° amine &nbsp;(carbon count DECREASES by 1)</div>
+      <div class="rxn"><span class="rxn-name">Clemmensen Reduction</span>Carbonyl → CH₂ (using Zn-Hg/HCl) in acidic medium</div>
+      <div class="rxn"><span class="rxn-name">Wolf-Kishner Reduction</span>Carbonyl → CH₂ (using N₂H₄/KOH) in basic medium</div>
+      <div class="rxn"><span class="rxn-name">Fehling's / Tollen's Test</span>Aldehydes give positive; ketones (except methyl ketones via iodoform) give negative</div>
+
+      <div class="fact-box c" style="margin-top:14px;"><strong>KEY CONVERSION PATHWAYS</strong>
+        <ul class="nb c">
+          <li>Alcohol → Halide: SOCl₂ / HX / PCl₃</li>
+          <li>Halide → Alcohol: NaOH/H₂O (SN2) or AgOH</li>
+          <li>1° Alcohol → Aldehyde: PCC / CrO₃ (mild oxidation)</li>
+          <li>Aldehyde → Acid: KMnO₄ / K₂Cr₂O₇ / Tollen's reagent</li>
+          <li>Acid → Amine: acid → amide (NH₃ + heat) → Hofmann bromamide → 1° amine</li>
+          <li>Benzene → Aniline: nitration (HNO₃/H₂SO₄) → Sn/HCl reduction</li>
+          <li>Aniline → Diazonium salt: NaNO₂ + HCl at 0–5°C (Diazotization)</li>
+        </ul>
+      </div>
+      <div class="alert">Distinguish aldehyde vs ketone (Tollen's/Fehling's), identify SN1/SN2 product, arrange basicity order of amines</div>
+    </div>
+  </div>
+
+  <!-- Inorganic Chem -->
+  <div class="subsection">
+    <div class="subsection-header c">Inorganic Chemistry</div>
+    <div class="subsection-body">
+      <div class="fact-box c"><strong>CHEMICAL BONDING</strong>
+        <ul class="nb c">
+          <li>VSEPR: shape depends on bond pairs + lone pairs on central atom</li>
+          <li>Bond order ↑ → bond length ↓, bond energy ↑</li>
+          <li>Hybridisation: sp (linear 180°), sp² (trigonal planar 120°), sp³ (tetrahedral 109.5°), sp³d (trigonal bipyramidal), sp³d² (octahedral 90°)</li>
+          <li>MOT: bond order = (Nb − Na)/2 &nbsp;|&nbsp; Bond order &gt; 0 = stable molecule</li>
+          <li>Dipole moment = 0 for symmetrical molecules (CO₂, BF₃, CCl₄) even if bonds are polar</li>
+        </ul>
+      </div>
+      <div class="fact-box c"><strong>COORDINATION COMPOUNDS</strong>
+        <ul class="nb c">
+          <li>IUPAC: ligands listed alphabetically BEFORE the metal; anionic complex name ends in -ate</li>
+          <li>Oxidation state: balance charge from ligands + overall charge</li>
+          <li>CFT: Δ (crystal field splitting) &nbsp;|&nbsp; Strong field ligand = low spin = fewer unpaired electrons = diamagnetic</li>
+          <li>Weak field ligand = high spin = more unpaired electrons = paramagnetic</li>
+          <li>Spectrochemical series: I⁻ &lt; Br⁻ &lt; Cl⁻ &lt; F⁻ &lt; OH⁻ &lt; en &lt; CN⁻ &lt; CO (left = weak, right = strong)</li>
+          <li>Magnetic moment: μ = √[n(n+2)] BM (n = unpaired electrons)</li>
+          <li>Colour of complexes: due to d-d transitions (absorption of visible light)</li>
+        </ul>
+      </div>
+      <div class="grid2">
+        <div class="fact-box c"><strong>K₂Cr₂O₇ — POTASSIUM DICHROMATE</strong>
+          <ul class="nb c">
+            <li>Preparation: chromite ore → Na₂CrO₄ → acidify → K₂Cr₂O₇</li>
+            <li>Colour: orange</li>
+            <li>Strong oxidising agent in acidic medium</li>
+            <li>Cr₂O₇²⁻ + 14H⁺ + 6e⁻ → 2Cr³⁺ + 7H₂O</li>
+            <li>Oxidation state of Cr = +6</li>
+          </ul>
+        </div>
+        <div class="fact-box c"><strong>KMnO₄ — POTASSIUM PERMANGANATE</strong>
+          <ul class="nb c">
+            <li>Preparation: MnO₂ → K₂MnO₄ (fusion) → electrolytic oxidation → KMnO₄</li>
+            <li>Colour: purple/violet</li>
+            <li>Oxidises in acidic, alkaline &amp; neutral media</li>
+            <li>Acidic: MnO₄⁻ + 8H⁺ + 5e⁻ → Mn²⁺ + 4H₂O</li>
+            <li>Oxidation state of Mn = +7</li>
+          </ul>
+        </div>
+      </div>
+      <div class="fact-box c"><strong>p-BLOCK, d-BLOCK &amp; f-BLOCK</strong>
+        <ul class="nb c">
+          <li>p-block: memorise oxidation states, oxides, hydrides of N, P, S, O, halogens</li>
+          <li>Anomalous properties of 2nd period: N (no d-orbital, max covalency 4), O (high electronegativity, H-bonding)</li>
+          <li>d-block: variable oxidation states due to incomplete d-subshell</li>
+          <li>Lanthanoid contraction: similar atomic radii → difficult separation</li>
+          <li>Actinoids: radioactive, complex oxidation states</li>
+        </ul>
+      </div>
+      <div class="alert">Colour of complexes (d-d transition), magnetic behaviour, oxidation states of Cr/Mn, K₂Cr₂O₇ preparation</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ MATHEMATICS ══════════════════ -->
+<div id="maths">
+  <div class="section-header">
+    <div class="section-icon m">📐</div>
+    <div class="section-title">
+      <h2 class="m">Mathematics</h2>
+      <p>Scoring if practiced · Calculus is crown jewel · Expected ~30 questions</p>
+    </div>
+  </div>
+
+  <!-- Calculus -->
+  <div class="subsection">
+    <div class="subsection-header m">01 · Calculus (Most Important)</div>
+    <div class="subsection-body">
+      <div class="fact-box m"><strong>LIMITS &amp; CONTINUITY</strong>
+        <ul class="nb m">
+          <li>Continuity at x = a: LHL = RHL = f(a)</li>
+          <li>Differentiability ⊂ Continuity (differentiable → continuous, NOT vice versa)</li>
+          <li>Modulus, greatest integer functions are NOT differentiable at critical points</li>
+        </ul>
+      </div>
+      <div class="fact-box m"><strong>DIFFERENTIATION</strong>
+        <table class="ftable">
+          <tr><td>Chain Rule</td><td>d/dx[f(g(x))] = f'(g(x))·g'(x)</td></tr>
+          <tr><td>Product Rule</td><td>(uv)' = u'v + uv'</td></tr>
+          <tr><td>Quotient Rule</td><td>(u/v)' = (u'v − uv')/v²</td></tr>
+          <tr><td>d/dx(xⁿ)</td><td>nxⁿ⁻¹</td></tr>
+          <tr><td>d/dx(eˣ)</td><td>eˣ</td></tr>
+          <tr><td>d/dx(aˣ)</td><td>aˣ·ln a</td></tr>
+          <tr><td>d/dx(ln x)</td><td>1/x</td></tr>
+          <tr><td>d/dx(sin x)</td><td>cos x</td></tr>
+          <tr><td>d/dx(cos x)</td><td>−sin x</td></tr>
+          <tr><td>d/dx(tan x)</td><td>sec²x</td></tr>
+          <tr><td>d/dx(sin⁻¹x)</td><td>1/√(1−x²)</td></tr>
+          <tr><td>d/dx(cos⁻¹x)</td><td>−1/√(1−x²)</td></tr>
+          <tr><td>d/dx(tan⁻¹x)</td><td>1/(1+x²)</td></tr>
+        </table>
+      </div>
+      <div class="fact-box m"><strong>APPLICATION OF DERIVATIVES</strong>
+        <ul class="nb m">
+          <li>Increasing: f'(x) &gt; 0 &nbsp;|&nbsp; Decreasing: f'(x) &lt; 0</li>
+          <li>Local max/min: f'(x) = 0 (critical point)</li>
+          <li>f''(x) &lt; 0 → local maximum &nbsp;|&nbsp; f''(x) &gt; 0 → local minimum</li>
+          <li>Tangent slope = f'(x) &nbsp;|&nbsp; Normal slope = −1/f'(x)</li>
+          <li>Rate of change: dy/dt = (dy/dx)·(dx/dt)</li>
+        </ul>
+      </div>
+      <div class="fact-box m"><strong>INTEGRATION</strong>
+        <table class="ftable">
+          <tr><td>∫xⁿ dx</td><td>xⁿ⁺¹/(n+1) + C &nbsp;(n ≠ −1)</td></tr>
+          <tr><td>∫eˣ dx</td><td>eˣ + C</td></tr>
+          <tr><td>∫(1/x) dx</td><td>ln|x| + C</td></tr>
+          <tr><td>∫sin x dx</td><td>−cos x + C</td></tr>
+          <tr><td>∫cos x dx</td><td>sin x + C</td></tr>
+          <tr><td>∫sec²x dx</td><td>tan x + C</td></tr>
+          <tr><td>∫1/√(1−x²) dx</td><td>sin⁻¹x + C</td></tr>
+          <tr><td>∫1/(1+x²) dx</td><td>tan⁻¹x + C</td></tr>
+          <tr><td>Integration by Parts</td><td>∫u dv = uv − ∫v du &nbsp;|&nbsp; ILATE order</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:10px 14px;background:rgba(167,139,250,0.08);border-radius:8px;font-family:'Space Mono',monospace;font-size:12px;color:#c4b5fd;">
+          ILATE → Inverse trig · Logarithm · Algebraic · Trigonometric · Exponential
+        </div>
+      </div>
+      <div class="fact-box m"><strong>DEFINITE INTEGRALS — KEY PROPERTIES</strong>
+        <ul class="nb m">
+          <li>∫[a→b] f(x)dx = −∫[b→a] f(x)dx</li>
+          <li>∫[a→b] f(x)dx = ∫[a→b] f(a+b−x)dx</li>
+          <li>∫[0→2a] f(x)dx = 2∫[0→a] f(x)dx &nbsp;if f(2a−x) = f(x)</li>
+          <li>∫[0→2a] f(x)dx = 0 &nbsp;if f(2a−x) = −f(x)</li>
+          <li>∫[−a→a] f(x)dx = 2∫[0→a] f(x)dx if f is even &nbsp;|&nbsp; = 0 if f is odd</li>
+        </ul>
+      </div>
+      <div class="fact-box m"><strong>DIFFERENTIAL EQUATIONS</strong>
+        <ul class="nb m">
+          <li>Order = highest derivative &nbsp;|&nbsp; Degree = power of highest derivative</li>
+          <li>Variable Separable: f(x)dx = g(y)dy → integrate both sides</li>
+          <li>Linear DE: dy/dx + Py = Q → IF = e^∫Pdx → solution: y·IF = ∫Q·IF dx + C</li>
+          <li>Homogeneous: substitute y = vx → separate variables</li>
+        </ul>
+      </div>
+      <div class="alert">Integration by parts, definite integral properties, variable separable DE, application of derivatives (max/min)</div>
+    </div>
+  </div>
+
+  <!-- Algebra -->
+  <div class="subsection">
+    <div class="subsection-header m">02 · Algebra</div>
+    <div class="subsection-body">
+      <div class="fact-box m"><strong>MATRICES &amp; DETERMINANTS</strong>
+        <table class="ftable">
+          <tr><td>det(AB)</td><td>det(A) · det(B)</td></tr>
+          <tr><td>Inverse</td><td>A⁻¹ = adj(A)/det(A)</td></tr>
+          <tr><td>adj(A)</td><td>Transpose of cofactor matrix</td></tr>
+          <tr><td>2×2 Inverse</td><td>A = [a b; c d] → A⁻¹ = (1/|A|)[d −b; −c a]</td></tr>
+          <tr><td>(AB)⁻¹</td><td>B⁻¹A⁻¹</td></tr>
+          <tr><td>Linear equations</td><td>AX = B → X = A⁻¹B</td></tr>
+          <tr><td>Cramer's Rule</td><td>x = D₁/D, y = D₂/D, z = D₃/D</td></tr>
+        </table>
+        <ul class="nb m" style="margin-top:10px;">
+          <li>Row/column operations: multiplying a row by k multiplies determinant by k</li>
+          <li>If two rows/columns are identical → determinant = 0</li>
+          <li>Transpose does not change determinant value</li>
+        </ul>
+      </div>
+      <div class="fact-box m"><strong>PROBABILITY</strong>
+        <table class="ftable">
+          <tr><td>Addition Rule</td><td>P(A∪B) = P(A) + P(B) − P(A∩B)</td></tr>
+          <tr><td>Conditional Probability</td><td>P(A|B) = P(A∩B)/P(B)</td></tr>
+          <tr><td>Bayes' Theorem</td><td>P(Aᵢ|B) = P(Aᵢ)·P(B|Aᵢ) / ΣP(Aⱼ)·P(B|Aⱼ)</td></tr>
+          <tr><td>Binomial Distribution</td><td>P(X=r) = ⁿCᵣ · pʳ · qⁿ⁻ʳ</td></tr>
+          <tr><td>Mean of BD</td><td>np</td></tr>
+          <tr><td>Variance of BD</td><td>npq</td></tr>
+        </table>
+      </div>
+      <div class="fact-box m"><strong>COMPLEX NUMBERS</strong>
+        <ul class="nb m">
+          <li>i² = −1, i³ = −i, i⁴ = 1</li>
+          <li>|z| = √(a²+b²) &nbsp;|&nbsp; Argument θ = tan⁻¹(b/a)</li>
+          <li>De Moivre's Theorem: (cosθ + i sinθ)ⁿ = cos nθ + i sin nθ</li>
+          <li>Polar form: z = r(cosθ + i sinθ) = re^(iθ)</li>
+          <li>Conjugate: z̄ = a − bi &nbsp;|&nbsp; z·z̄ = |z|²</li>
+        </ul>
+      </div>
+      <div class="alert">Determinant properties, Bayes' theorem, binomial distribution mean and variance</div>
+    </div>
+  </div>
+
+  <!-- Coordinate Geometry -->
+  <div class="subsection">
+    <div class="subsection-header m">03 · Coordinate Geometry</div>
+    <div class="subsection-body">
+      <table class="ftable">
+        <tr><th>Topic</th><th>Key Formula</th></tr>
+        <tr><td>Slope</td><td>m = (y₂−y₁)/(x₂−x₁)</td></tr>
+        <tr><td>Line equation (point-slope)</td><td>y − y₁ = m(x − x₁)</td></tr>
+        <tr><td>Intercept form</td><td>x/a + y/b = 1</td></tr>
+        <tr><td>Distance from point to line</td><td>d = |ax₁ + by₁ + c| / √(a²+b²)</td></tr>
+        <tr><td>Circle (standard)</td><td>(x−h)² + (y−k)² = r²</td></tr>
+        <tr><td>Circle (general)</td><td>x²+y²+2gx+2fy+c=0 → centre(−g,−f), r=√(g²+f²−c)</td></tr>
+        <tr><td>Parabola</td><td>y² = 4ax → focus (a,0), directrix x=−a, vertex (0,0)</td></tr>
+        <tr><td>Ellipse</td><td>x²/a² + y²/b² = 1 (a&gt;b) → foci (±c,0) where c²=a²−b²</td></tr>
+        <tr><td>Hyperbola</td><td>x²/a² − y²/b² = 1 → foci (±c,0) where c²=a²+b²</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Vectors & 3D -->
+  <div class="subsection">
+    <div class="subsection-header m">04 · Vectors &amp; 3D Geometry</div>
+    <div class="subsection-body">
+      <div class="grid2">
+        <div class="fact-box m"><strong>VECTORS</strong>
+          <ul class="nb m">
+            <li>|a⃗| = √(x²+y²+z²)</li>
+            <li>Unit vector: â = a⃗/|a⃗|</li>
+            <li>Dot product: a⃗·b⃗ = |a||b|cosθ</li>
+            <li>Cross product: |a⃗×b⃗| = |a||b|sinθ</li>
+            <li>a⃗·b⃗ = 0 → perpendicular</li>
+            <li>a⃗×b⃗ = 0 → parallel</li>
+            <li>Area of triangle = ½|a⃗×b⃗|</li>
+          </ul>
+        </div>
+        <div class="fact-box m"><strong>3D GEOMETRY</strong>
+          <ul class="nb m">
+            <li>l²+m²+n² = 1 (direction cosines)</li>
+            <li>Line: (x−x₁)/a = (y−y₁)/b = (z−z₁)/c</li>
+            <li>Plane: ax+by+cz+d = 0</li>
+            <li>Angle between lines: cosθ = (a₁a₂+b₁b₂+c₁c₂)/(|d₁||d₂|)</li>
+            <li>Distance point to plane: |ax₁+by₁+cz₁+d|/√(a²+b²+c²)</li>
+            <li>Angle between line &amp; plane: sinθ = (al+bm+cn)/(√(a²+b²+c²)·1)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="alert">Angle between two lines/planes, equation of line through two points, dot/cross product applications</div>
+    </div>
+  </div>
+
+  <!-- Relations & Functions -->
+  <div class="subsection">
+    <div class="subsection-header m">05 · Relations &amp; Functions</div>
+    <div class="subsection-body">
+      <table class="ftable">
+        <tr><th>Type</th><th>Definition</th></tr>
+        <tr><td>Reflexive</td><td>(a,a) ∈ R for all a ∈ A</td></tr>
+        <tr><td>Symmetric</td><td>(a,b) ∈ R → (b,a) ∈ R</td></tr>
+        <tr><td>Transitive</td><td>(a,b) ∈ R and (b,c) ∈ R → (a,c) ∈ R</td></tr>
+        <tr><td>Equivalence</td><td>Reflexive + Symmetric + Transitive</td></tr>
+        <tr><td>One-one (Injective)</td><td>f(a)=f(b) → a=b</td></tr>
+        <tr><td>Onto (Surjective)</td><td>every element of codomain has a preimage</td></tr>
+        <tr><td>Bijective</td><td>One-one + Onto</td></tr>
+      </table>
+      <div class="fact-box m" style="margin-top:12px;"><strong>INVERSE TRIG — DOMAIN &amp; RANGE</strong>
+        <table class="ftable">
+          <tr><td>sin⁻¹x</td><td>Domain [−1,1] &nbsp;|&nbsp; Range [−π/2, π/2]</td></tr>
+          <tr><td>cos⁻¹x</td><td>Domain [−1,1] &nbsp;|&nbsp; Range [0, π]</td></tr>
+          <tr><td>tan⁻¹x</td><td>Domain ℝ &nbsp;|&nbsp; Range (−π/2, π/2)</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ ENGLISH ══════════════════════ -->
+<div id="english">
+  <div class="section-header">
+    <div class="section-icon e">🗣</div>
+    <div class="section-title">
+      <h2 class="e">English</h2>
+      <p>Easy rank booster · Practice 15–20 min daily · ~25 questions</p>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-header e">Reading Comprehension + Grammar + Vocabulary</div>
+    <div class="subsection-body">
+      <div class="grid2">
+        <div class="fact-box e"><strong>READING COMPREHENSION</strong>
+          <ul class="nb e">
+            <li>Read passage FIRST, then questions</li>
+            <li>Answers are usually explicit in the text — don't assume</li>
+            <li>Look for synonyms/paraphrased answers in passage</li>
+            <li>Tone/inference questions: read carefully around key lines</li>
+            <li>Title questions: find the central theme, not a detail</li>
+          </ul>
+        </div>
+        <div class="fact-box e"><strong>VOCABULARY</strong>
+          <ul class="nb e">
+            <li>Learn roots: bene (good), mal (bad), dict (say), port (carry), rupt (break), cred (believe)</li>
+            <li>Common prefixes: un-, dis-, im-, pre-, re-, mis-</li>
+            <li>Common suffixes: -tion, -ous, -ful, -less, -ment, -ity</li>
+            <li>Practice previous year synonym/antonym words</li>
+            <li>Context clues in fill-in-the-blank questions</li>
+          </ul>
+        </div>
+      </div>
+      <div class="fact-box e"><strong>COMMON GRAMMAR RULES</strong>
+        <ul class="nb e">
+          <li>Subject-verb agreement: singular subject → singular verb; collective nouns (team, committee) → singular</li>
+          <li>Tense consistency: don't mix past and present in same sentence without reason</li>
+          <li>Articles: 'a' before consonant sound, 'an' before vowel sound, 'the' for specific/unique things</li>
+          <li>Prepositions for time: at (exact time), in (month/year/period), on (day/date)</li>
+          <li>Pronoun-antecedent agreement: pronoun must match noun in number and gender</li>
+          <li>Parallelism: items in a list must be in the same grammatical form</li>
+          <li>Misplaced modifiers: modifier should be closest to the word it modifies</li>
+          <li>Active → Passive: Object + was/were + past participle + by + subject</li>
+          <li>Direct → Indirect speech: change tense, pronouns, time expressions</li>
+        </ul>
+      </div>
+      <div class="fact-box e"><strong>FILL IN THE BLANKS — CLUE WORDS</strong>
+        <ul class="nb e">
+          <li>"since / for" → present perfect or past perfect</li>
+          <li>"if ... will" → first conditional (possible future)</li>
+          <li>"if ... would" → second conditional (unreal present)</li>
+          <li>"if ... had ... would have" → third conditional (unreal past)</li>
+          <li>"neither ... nor", "either ... or" → verb agrees with nearest subject</li>
+        </ul>
+      </div>
+      <div class="fact-box e"><strong>ERROR DETECTION — CHECK ORDER</strong>
+        <ul class="nb e">
+          <li>Step 1: Subject-verb agreement</li>
+          <li>Step 2: Tense error</li>
+          <li>Step 3: Wrong preposition or article</li>
+          <li>Step 4: Pronoun error</li>
+          <li>Step 5: Redundancy or wrong word choice</li>
+        </ul>
+      </div>
+      <div class="fact-box e"><strong>SENTENCE REARRANGEMENT (PARA-JUMBLE)</strong>
+        <ul class="nb e">
+          <li>Find the OPENING sentence: introduces topic, no pronoun reference to unknown entity</li>
+          <li>Find MANDATORY PAIRS: pronoun → its antecedent</li>
+          <li>Find LOGICAL CONNECTORS: however, therefore, although, moreover, consequently</li>
+          <li>Find CONCLUSION: often contains 'thus', 'therefore', 'finally', 'in conclusion'</li>
+        </ul>
+      </div>
+      <div class="alert">One unseen passage (5–6 Qs), 2–3 error detection, 2–3 fillers, 2–3 vocabulary questions — every year</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ CS ═══════════════════════════ -->
+<div id="cs">
+  <div class="section-header">
+    <div class="section-icon cs">💻</div>
+    <div class="section-title">
+      <h2 class="cs">Computer Science</h2>
+      <p>Very scoring · Clearly defined syllabus · Practice code &amp; SQL on paper</p>
+    </div>
+  </div>
+
+  <!-- Python -->
+  <div class="subsection">
+    <div class="subsection-header cs">01 · Python Programming</div>
+    <div class="subsection-body">
+      <div class="fact-box cs"><strong>DATA TYPES</strong>
+        <ul class="nb cs">
+          <li><strong>Mutable:</strong> list, dict, set (can be changed after creation)</li>
+          <li><strong>Immutable:</strong> int, float, str, tuple, bool (cannot be changed)</li>
+          <li>int, float, str, bool, list, tuple, dict, set</li>
+        </ul>
+      </div>
+      <div class="fact-box cs"><strong>IMPORTANT BUILT-IN FUNCTIONS</strong>
+        <ul class="nb cs">
+          <li>len(), type(), range(), enumerate(), zip(), sorted(), reversed()</li>
+          <li>List: append(), extend(), insert(), remove(), pop(), sort(), reverse(), index(), count()</li>
+          <li>String: upper(), lower(), strip(), split(), replace(), find(), join(), startswith(), endswith()</li>
+          <li>Dict: keys(), values(), items(), get(), update(), pop()</li>
+          <li>Set: add(), remove(), union(), intersection(), difference()</li>
+        </ul>
+      </div>
+      <div class="codeblock"><span class="cm"># FILE HANDLING</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="st">"file.txt"</span>, <span class="st">"r"</span>) <span class="kw">as</span> f:
+    data = f.<span class="fn">read</span>()          <span class="cm"># entire file as string</span>
+    line = f.<span class="fn">readline</span>()     <span class="cm"># one line</span>
+    lines = f.<span class="fn">readlines</span>()   <span class="cm"># list of lines</span>
+
+<span class="cm"># modes: r (read), w (write/overwrite), a (append)</span>
+<span class="cm">#        rb (binary read), wb (binary write)</span>
+
+<span class="kw">import</span> csv
+<span class="kw">with</span> <span class="fn">open</span>(<span class="st">"data.csv"</span>) <span class="kw">as</span> f:
+    reader = csv.<span class="fn">reader</span>(f)
+    <span class="kw">for</span> row <span class="kw">in</span> reader:
+        <span class="fn">print</span>(row)</div>
+      <div class="codeblock"><span class="cm"># FUNCTIONS</span>
+<span class="kw">def</span> <span class="fn">greet</span>(name, msg=<span class="st">"Hello"</span>):    <span class="cm"># default argument</span>
+    <span class="kw">return</span> f<span class="st">"{msg}, {name}!"</span>
+
+<span class="kw">def</span> <span class="fn">add_all</span>(*args):               <span class="cm"># *args = tuple of arguments</span>
+    <span class="kw">return</span> <span class="fn">sum</span>(args)
+
+square = <span class="kw">lambda</span> x: x**<span class="nu">2</span>          <span class="cm"># lambda function</span>
+
+<span class="cm"># RECURSION</span>
+<span class="kw">def</span> <span class="fn">factorial</span>(n):
+    <span class="kw">if</span> n == <span class="nu">0</span>: <span class="kw">return</span> <span class="nu">1</span>            <span class="cm"># base case (MUST HAVE)</span>
+    <span class="kw">return</span> n * <span class="fn">factorial</span>(n-<span class="nu">1</span>)</div>
+      <div class="codeblock"><span class="cm"># EXCEPTION HANDLING</span>
+<span class="kw">try</span>:
+    result = <span class="nu">10</span> / <span class="nu">0</span>
+<span class="kw">except</span> ZeroDivisionError <span class="kw">as</span> e:
+    <span class="fn">print</span>(<span class="st">"Error:"</span>, e)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="st">"No error"</span>)    <span class="cm"># runs ONLY if no exception</span>
+<span class="kw">finally</span>:
+    <span class="fn">print</span>(<span class="st">"Always runs"</span>)  <span class="cm"># runs regardless</span>
+
+<span class="cm"># Common exceptions: ValueError, TypeError, IndexError,</span>
+<span class="cm"># KeyError, FileNotFoundError, ZeroDivisionError</span></div>
+      <div class="alert">Python snippet output, file handling modes, lambda functions, exception types, list/dict operations</div>
+    </div>
+  </div>
+
+  <!-- Data Structures -->
+  <div class="subsection">
+    <div class="subsection-header cs">02 · Data Structures</div>
+    <div class="subsection-body">
+      <div class="grid2">
+        <div class="fact-box cs"><strong>STACK (LIFO)</strong>
+          <ul class="nb cs">
+            <li>LIFO = Last In First Out</li>
+            <li>Push: <code>stack.append(item)</code></li>
+            <li>Pop: <code>stack.pop()</code></li>
+            <li>Peek/Top: <code>stack[-1]</code></li>
+            <li>isEmpty: <code>len(stack) == 0</code></li>
+            <li>Applications: undo operations, expression evaluation, recursion, parenthesis matching</li>
+          </ul>
+        </div>
+        <div class="fact-box cs"><strong>QUEUE (FIFO)</strong>
+          <ul class="nb cs">
+            <li>FIFO = First In First Out</li>
+            <li>Enqueue: <code>queue.append(item)</code></li>
+            <li>Dequeue: <code>queue.pop(0)</code></li>
+            <li>Front: <code>queue[0]</code></li>
+            <li>isEmpty: <code>len(queue) == 0</code></li>
+            <li>Efficient: <code>from collections import deque</code></li>
+            <li>Applications: scheduling, BFS, print queue</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SQL -->
+  <div class="subsection">
+    <div class="subsection-header cs">03 · Database &amp; SQL</div>
+    <div class="subsection-body">
+      <div class="codeblock"><span class="cm">-- BASIC QUERIES</span>
+<span class="kw">SELECT</span> col1, col2 <span class="kw">FROM</span> table_name;
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> students <span class="kw">WHERE</span> marks &gt; <span class="nu">80</span>;
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> emp <span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>;
+<span class="kw">SELECT</span> DISTINCT dept <span class="kw">FROM</span> employees;
+
+<span class="cm">-- AGGREGATE FUNCTIONS</span>
+<span class="kw">SELECT</span> <span class="fn">COUNT</span>(*), <span class="fn">SUM</span>(salary), <span class="fn">AVG</span>(marks), <span class="fn">MAX</span>(age), <span class="fn">MIN</span>(age)
+<span class="kw">FROM</span> emp;
+
+<span class="cm">-- GROUP BY + HAVING</span>
+<span class="kw">SELECT</span> dept, <span class="fn">COUNT</span>(*) <span class="kw">FROM</span> emp
+<span class="kw">GROUP BY</span> dept
+<span class="kw">HAVING</span> <span class="fn">COUNT</span>(*) &gt; <span class="nu">5</span>;       <span class="cm">-- HAVING filters groups; WHERE filters rows</span>
+
+<span class="cm">-- DML</span>
+<span class="kw">INSERT INTO</span> students <span class="kw">VALUES</span> (<span class="nu">101</span>, <span class="st">'Abhinaba'</span>, <span class="nu">95</span>);
+<span class="kw">UPDATE</span> students <span class="kw">SET</span> marks = <span class="nu">98</span> <span class="kw">WHERE</span> id = <span class="nu">101</span>;
+<span class="kw">DELETE FROM</span> students <span class="kw">WHERE</span> marks &lt; <span class="nu">40</span>;
+
+<span class="cm">-- JOINS</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> A <span class="kw">INNER JOIN</span> B <span class="kw">ON</span> A.id = B.id;  <span class="cm">-- matching rows only</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> A <span class="kw">LEFT JOIN</span> B <span class="kw">ON</span> A.id = B.id;   <span class="cm">-- all A + matching B</span></div>
+      <div class="fact-box cs"><strong>KEYS &amp; CONSTRAINTS</strong>
+        <ul class="nb cs">
+          <li>Primary Key: unique + NOT NULL, one per table</li>
+          <li>Foreign Key: references primary key of another table (maintains referential integrity)</li>
+          <li>Candidate Key: any column(s) that can uniquely identify a row</li>
+          <li>Alternate Key: candidate keys that are NOT the primary key</li>
+          <li>UNIQUE: all values distinct, allows one NULL</li>
+          <li>NOT NULL: column cannot have NULL values</li>
+        </ul>
+      </div>
+      <div class="fact-box cs"><strong>SQL FUNCTIONS</strong>
+        <ul class="nb cs">
+          <li>String: UPPER(), LOWER(), LENGTH(), SUBSTRING(str,start,len), CONCAT()</li>
+          <li>Numeric: ROUND(val,decimals), MOD(a,b), POWER(x,n), ABS()</li>
+          <li>Date: NOW(), CURDATE(), YEAR(), MONTH()</li>
+        </ul>
+      </div>
+      <div class="alert">Write SQL to fetch specific data, difference between WHERE and HAVING, types of joins, key constraints</div>
+    </div>
+  </div>
+
+  <!-- Boolean + Gates -->
+  <div class="subsection">
+    <div class="subsection-header cs">04 · Boolean Algebra &amp; Logic Gates</div>
+    <div class="subsection-body">
+      <table class="gate-table">
+        <tr><th>Gate</th><th>Symbol</th><th>0,0</th><th>0,1</th><th>1,0</th><th>1,1</th><th>Behaviour</th></tr>
+        <tr><td>AND</td><td>A·B</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1 only if BOTH are 1</td></tr>
+        <tr><td>OR</td><td>A+B</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1 if ANY input is 1</td></tr>
+        <tr><td>NOT</td><td>A'</td><td colspan="4" style="text-align:center;">0→1, 1→0</td><td>Inverts input</td></tr>
+        <tr><td>NAND</td><td>(A·B)'</td><td>1</td><td>1</td><td>1</td><td>0</td><td>AND then NOT (Universal)</td></tr>
+        <tr><td>NOR</td><td>(A+B)'</td><td>1</td><td>0</td><td>0</td><td>0</td><td>OR then NOT (Universal)</td></tr>
+        <tr><td>XOR</td><td>A⊕B</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1 if inputs DIFFER</td></tr>
+        <tr><td>XNOR</td><td>(A⊕B)'</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1 if inputs are SAME</td></tr>
+      </table>
+      <div class="fact-box cs" style="margin-top:14px;"><strong>DE MORGAN'S LAWS</strong>
+        <ul class="nb cs">
+          <li>(A·B)' = A' + B' &nbsp;→ NOT(AND) = OR of NOTs</li>
+          <li>(A+B)' = A'·B' &nbsp;→ NOT(OR) = AND of NOTs</li>
+          <li>NAND and NOR are called UNIVERSAL gates (any Boolean function can be built from them alone)</li>
+        </ul>
+      </div>
+      <div class="fact-box cs"><strong>BOOLEAN LAWS</strong>
+        <ul class="nb cs">
+          <li>Identity: A+0 = A, A·1 = A</li>
+          <li>Null: A+1 = 1, A·0 = 0</li>
+          <li>Complement: A+A' = 1, A·A' = 0</li>
+          <li>Idempotent: A+A = A, A·A = A</li>
+          <li>Absorption: A+AB = A, A(A+B) = A</li>
+        </ul>
+      </div>
+      <div class="alert">Given inputs find logic gate output, De Morgan's equivalents, SOP/POS expressions from truth table</div>
+    </div>
+  </div>
+
+  <!-- Networks -->
+  <div class="subsection">
+    <div class="subsection-header cs">05 · Computer Networks</div>
+    <div class="subsection-body">
+      <div class="grid2">
+        <div class="fact-box cs"><strong>NETWORK DEVICES</strong>
+          <ul class="nb cs">
+            <li>Hub → broadcasts to ALL devices (dumb)</li>
+            <li>Switch → sends to specific device using MAC address</li>
+            <li>Router → connects different networks using IP address</li>
+            <li>Modem → modulation/demodulation (digital ↔ analog)</li>
+            <li>Gateway → protocol conversion between networks</li>
+            <li>Repeater → amplifies signal over long distances</li>
+            <li>Bridge → connects two similar networks (uses MAC)</li>
+          </ul>
+        </div>
+        <div class="fact-box cs"><strong>NETWORK TOPOLOGIES</strong>
+          <ul class="nb cs">
+            <li>Bus: single cable, all devices connected to it</li>
+            <li>Star: all devices connected to central hub/switch</li>
+            <li>Ring: devices in a ring, token-based</li>
+            <li>Mesh: every device connected to every other</li>
+            <li>Tree: hierarchical star topology</li>
+            <li>Hybrid: combination of above</li>
+          </ul>
+        </div>
+      </div>
+      <div class="fact-box cs"><strong>PROTOCOLS</strong>
+        <table class="ftable">
+          <tr><td>HTTP / HTTPS</td><td>Web browsing (HTTPS = secure with SSL/TLS)</td></tr>
+          <tr><td>FTP</td><td>File Transfer Protocol</td></tr>
+          <tr><td>SMTP</td><td>Sending emails</td></tr>
+          <tr><td>POP3 / IMAP</td><td>Receiving emails (POP3 downloads, IMAP syncs)</td></tr>
+          <tr><td>TCP/IP</td><td>Reliable, connection-oriented transmission</td></tr>
+          <tr><td>UDP</td><td>Fast but unreliable (streaming, gaming)</td></tr>
+          <tr><td>DNS</td><td>Domain Name System → converts URL to IP address</td></tr>
+          <tr><td>DHCP</td><td>Assigns IP addresses automatically</td></tr>
+        </table>
+      </div>
+      <div class="fact-box cs"><strong>IP ADDRESSING</strong>
+        <ul class="nb cs">
+          <li>IPv4: 32-bit address (e.g., 192.168.1.1) — 4 octets</li>
+          <li>IPv6: 128-bit address — handles more devices</li>
+          <li>Class A: 0–127 (large networks)</li>
+          <li>Class B: 128–191 (medium networks)</li>
+          <li>Class C: 192–223 (small networks, most common)</li>
+          <li>Private IPs: 192.168.x.x, 10.x.x.x, 172.16.x.x</li>
+        </ul>
+      </div>
+      <div class="fact-box cs"><strong>TRANSMISSION MEDIA</strong>
+        <ul class="nb cs">
+          <li>Twisted pair: cheap, common (LAN cables) — susceptible to interference</li>
+          <li>Coaxial: better shielding, used in cable TV</li>
+          <li>Optical fibre: fastest, light signals, immune to electromagnetic interference</li>
+          <li>Wireless: radio waves, microwaves, infrared</li>
+        </ul>
+      </div>
+      <div class="alert">Identify protocol for task, device functions (router vs switch vs hub), IP address classes</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ ALWAYS ASKED ══════════════════ -->
+<div id="always">
+  <div class="section-header">
+    <div class="section-icon" style="background:rgba(255,77,109,0.15);border-color:var(--accent);font-size:24px;">🔑</div>
+    <div class="section-title">
+      <h2 style="color:var(--accent);font-family:'Playfair Display',serif;font-size:28px;">Topics Asked Every Year</h2>
+      <p>Master these → guaranteed marks</p>
+    </div>
+  </div>
+  <div class="strategy-card">
+    <div class="strategy-body">
+      <table class="aa-table">
+        <tr><th>Subject</th><th>Topics That Appear in Almost Every Exam</th></tr>
+        <tr>
+          <td style="color:var(--physics);">⚡ Physics</td>
+          <td>Photoelectric Effect equation, LCR Circuit Resonance, Mirror/Lens Formula sign conventions, Radioactivity Decay Law &amp; Half-life, Logic Gates truth tables, Transformer equations</td>
+        </tr>
+        <tr>
+          <td style="color:var(--chemistry);">⚗ Chemistry</td>
+          <td>Raoult's Law &amp; Colligative Properties, K₂Cr₂O₇ &amp; KMnO₄ preparation/reactions, Carbylamine &amp; Haloform Reactions, Crystal Field Theory (CFT), Nernst Equation</td>
+        </tr>
+        <tr>
+          <td style="color:var(--maths);">📐 Mathematics</td>
+          <td>Determinants &amp; Matrices properties, Integration by Parts (ILATE), Conditional Probability &amp; Bayes' Theorem, Differential Equations (Variable Separable), Application of Derivatives (max/min)</td>
+        </tr>
+        <tr>
+          <td style="color:var(--cs);">💻 CS</td>
+          <td>Python snippet output, File handling code, SQL queries (SELECT + GROUP BY + HAVING), Stack/Queue operations, Logic gate outputs, identify protocol</td>
+        </tr>
+        <tr>
+          <td style="color:var(--english);">🗣 English</td>
+          <td>Reading Comprehension passage (5–6 Qs), Fill in the blanks (tense/preposition), Error detection, Sentence rearrangement (para-jumble), Synonym/antonym vocabulary</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ STRATEGY ════════════════════ -->
+<div id="strategy">
+  <div class="section-header">
+    <div class="section-icon" style="background:rgba(255,77,109,0.15);border-color:var(--accent);">⏱</div>
+    <div class="section-title">
+      <h2 style="color:var(--accent);font-family:'Playfair Display',serif;font-size:28px;">Exam Strategy for 1250/1250</h2>
+      <p>60 minutes · 50 questions · ~72 seconds per question · Negative marking = −1</p>
+    </div>
+  </div>
+
+  <div class="strategy-card">
+    <div class="strategy-header">⏱ Three-Pass Strategy</div>
+    <div class="strategy-body">
+      <div class="pass-row">
+        <div class="pass-num" style="color:var(--english);">01</div>
+        <div class="pass-detail">
+          <strong>0 – 40 min → 100% Sure Questions Only</strong>
+          <span>Answer ONLY questions you are completely certain about. Move on instantly if unsure. Do NOT overthink or double-check excessively.</span>
+        </div>
+      </div>
+      <div class="pass-row">
+        <div class="pass-num" style="color:var(--physics);">02</div>
+        <div class="pass-detail">
+          <strong>40 – 55 min → Partially Known Questions</strong>
+          <span>Re-attempt questions marked for review. Use elimination, logic, and partial knowledge to narrow down options. Attempt only if you can eliminate at least 2 options.</span>
+        </div>
+      </div>
+      <div class="pass-row">
+        <div class="pass-num" style="color:var(--accent);">03</div>
+        <div class="pass-detail">
+          <strong>55 – 60 min → Calculated Risk Only</strong>
+          <span>Attempt ONLY if you can confidently eliminate at least 2 options. Random guessing = −1. Leave blank if completely unsure. 0 is better than −1.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="strategy-card">
+    <div class="strategy-header">🧠 Final Revision Plan</div>
+    <div class="strategy-body">
+      <div class="spec">
+        <div class="spec-item">
+          <div class="label" style="color:var(--physics);">Physics</div>
+          <div class="value">Write all formulas on a single sheet. Revise every morning. Focus on applying, not just memorising.</div>
+        </div>
+        <div class="spec-item">
+          <div class="label" style="color:var(--chemistry);">Chemistry</div>
+          <div class="value">Read NCERT line by line. Especially exceptions, anomalous properties, and colour of ions/complexes.</div>
+        </div>
+        <div class="spec-item">
+          <div class="label" style="color:var(--maths);">Mathematics</div>
+          <div class="value">Solve minimum 5 problems per high-weight topic daily. Focus on integration, determinants, probability.</div>
+        </div>
+        <div class="spec-item">
+          <div class="label" style="color:var(--english);">English</div>
+          <div class="value">15 min reading comprehension + error detection daily. Build vocabulary from previous year papers.</div>
+        </div>
+        <div class="spec-item">
+          <div class="label" style="color:var(--cs);">CS</div>
+          <div class="value">Practice Python snippets and SQL queries on paper. Trace through code mentally for output questions.</div>
+        </div>
+        <div class="spec-item">
+          <div class="label" style="color:var(--accent);">Mock Tests</div>
+          <div class="value">Take one full-length mock test daily in the last 2 weeks. Analyse every wrong answer. Non-negotiable.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="strategy-card">
+    <div class="strategy-header">⚠ Negative Marking — The Biggest Trap</div>
+    <div class="strategy-body" style="font-size:14px;line-height:2;">
+      <ul class="nb" style="--color:var(--accent);">
+        <li style="padding-left:20px;"><span style="color:var(--accent);font-weight:700;">Marking scheme: +5 correct, −1 incorrect, 0 unattempted</span></li>
+        <li style="padding-left:20px;">Never guess randomly — one wrong answer costs you the equivalent of ⅕ of a right answer</li>
+        <li style="padding-left:20px;">If you know 3 wrong options → safely attempt (1/1 left = sure)</li>
+        <li style="padding-left:20px;">If you know 2 wrong options → 50/50 → your call based on confidence</li>
+        <li style="padding-left:20px;">If you know 1 wrong option → skip, expected value negative</li>
+        <li style="padding-left:20px;">If you know 0 options → ALWAYS skip, leave blank</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</div><!-- end main -->
+
+<div class="footer">
+  CUET 2026 &nbsp;·&nbsp; Master Notes &nbsp;·&nbsp; All subjects · All topics · Complete strategy<br>
+  <span>Prepared for Abhinaba Roy · KV Tarakeswar · Batch 2025–26</span>
+</div>
+
+</body>
+</html>
